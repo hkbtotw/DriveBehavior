@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/linear1"
+        android:layout_width="585dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.benzneststudios.mychartapplication.MainActivity">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="243dp"
+            tools:context=".MapsActivity" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/map"
+            android:layout_marginTop="-3dp" />
+
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="13dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:inputType="text"
+            android:text="trip-1"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOff"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnOn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:onClick="TurnOffRecord"
+            android:text="OFF"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:text="ON"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/distanceView"
+            android:text="KM"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/btnOff"
+            />
+
+        <TextView
+            android:id="@+id/txtLatLong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:text=" xxxxxxxxxxxxx "
+            android:textSize="5dp"
+            android:layout_below="@id/distanceView"
+
+            />
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>
+
+

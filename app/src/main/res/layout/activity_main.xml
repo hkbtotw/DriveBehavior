@@ -64,21 +64,26 @@
             android:layout_height="match_parent"/>
     </FrameLayout>
 
-
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <TextView
         android:id="@+id/txtLatLong"
-        android:layout_width="wrap_content"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text=" xxxxxxxxxxxxx "
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@id/btnOn"
-    />
-
-
-
+        android:layout_below="@id/btnOn"/>
+    <TextView
+        android:id="@+id/distanceView"
+        android:text="KM"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
-
-
+</LinearLayout>

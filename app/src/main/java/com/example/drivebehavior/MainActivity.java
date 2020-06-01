@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -24,6 +25,7 @@ import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,6 +62,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Provider;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,7 +70,7 @@ import java.util.Date;
 //public class MainActivity extends AppCompatActivity {
 public class MainActivity extends FragmentActivity implements View.OnClickListener, OnMapReadyCallback {
     private static final int TIME = 5000;
-    private static final int DISTANCE = 1;  // Check at every i second  (i *1000) if the location changed more than distance, to update location
+    private static final int DISTANCE = 5;  // Check at every i second  (i *1000) if the location changed more than distance, to update location
     private LocationManager lcm;
     private ArrayList latLonList;
     private ArrayList speedList;
@@ -75,6 +78,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ArrayList distanceList;
     public DatabaseHandler mydb;
     public TextView tv;
+    public TextView distanceTv;
     public EditText editText;
     public Button btnOn;
     public Button btnOff;
@@ -89,14 +93,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private LineGraphSeries<DataPoint> series;
     private ArrayList xyValueArray;
     private BarChart chart;
+    public double sumDistance=0;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags (WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         tv=(TextView) findViewById(R.id.txtLatLong);
         editText=(EditText)  findViewById(R.id.editText);
+        distanceTv=(TextView)findViewById(R.id.distanceView);
         recordFlag=false;
         btnOn=(Button) findViewById(R.id.btnOn);
         btnOff=(Button) findViewById(R.id.btnOff);
@@ -111,7 +119,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         mydb=new DatabaseHandler(this);
         Log.d("Path"," path : "+this.getDatabasePath("driveBehavior_v1.db").getPath());
-        mydb.clearDatabase(mydb.TABLE_NAME);
+        //mydb.clearDatabase(mydb.TABLE_NAME);
         int totalRecord=mydb.getRecordCount();
         Log.d("TotalRow","Total Row : "+totalRecord);
         long result;
@@ -139,9 +147,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         // Add your initialization code here
         Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
-                .applicationId("myappID")
-                .clientKey("pHllrOVzWA7F")
-                .server("http://18.191.84.80/parse/")
+                .applicationId("")
+                .clientKey("")
+                .server("")
                 .build()
         );
 
@@ -152,7 +160,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     } // onCreate\
 
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+    }
 
     @Override
     public void onResume() {
@@ -244,11 +256,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if(lastLocation!=null){
                 double elaspedTime=(location.getTime()-lastLocation.getTime())/1000;
                 lastDistance=lastLocation.distanceTo(location);
+                sumDistance=sumDistance+(lastDistance/1000);
                 calculatedSpeed=lastLocation.distanceTo(location)/elaspedTime;
             }
             this.lastLocation=location;
             double speed=location.hasSpeed() ? location.getSpeed() : calculatedSpeed;
-            Log.d("Speed","CurrentSpeed "+speed+"  calSpeed "+calculatedSpeed+ " distance "+lastDistance);
+            Log.d("Speed","CurrentSpeed "+speed+"  calSpeed "+calculatedSpeed+ " distance "+lastDistance+" sumDist "+sumDistance);
 
 
         } else {
@@ -280,12 +293,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         String outText=OutputList(latLonList);
         tv.setText(outText);
+        DecimalFormat df = new DecimalFormat("#.#");
+        String dummy = df.format(sumDistance);
+
+        Log.i("text"," text out : "+dummy);
+        distanceTv.setText(dummy+" km");
         //WriteFile(latLongString);
 
         int totalRecord=mydb.getRecordCount();
         Log.d("TotalRow","Total Row 33  : "+totalRecord);
-        long result;
-        result=mydb.addRecord(editText.getText().toString(),""+location.getLatitude(),""+location.getLongitude(),currentDatetime,""+calculatedSpeed,""+lastDistance);
+        //long result;
+        //result=mydb.addRecord(editText.getText().toString(),""+location.getLatitude(),""+location.getLongitude(),currentDatetime,""+calculatedSpeed,""+lastDistance);
         totalRecord=mydb.getRecordCount();
         tv.append(" \n\n Total Record after updated "+totalRecord);
 
