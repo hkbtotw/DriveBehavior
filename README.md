@@ -7,4 +7,4 @@
 <b> Sample Images:<br/></b>
 Android Application
 
-<img src=https://github.com/hkbtotw/DriveBehavior/blob/master/ScreenCapture/ScreenPortrait.JPG alt="Demo UI" width="800"/>
+<img src=https://github.com/hkbtotw/DriveBehavior/blob/master/ScreenCapture/ScreenPortrait.jpg alt="Demo UI" width="800"/>
