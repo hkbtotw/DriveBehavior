@@ -31,12 +31,12 @@
 
     </RelativeLayout>
 
-
-    <RelativeLayout
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TableRow
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="13dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/editText"
@@ -46,28 +46,34 @@
             android:inputType="text"
             android:text="trip-1"
             android:textSize="30sp" />
+    </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/btnOff"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnOn"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
             android:onClick="TurnOffRecord"
             android:text="OFF"
             android:textSize="30sp" />
-
+    </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <Button
             android:id="@+id/btnOn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/editText"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
             android:text="ON"
             android:textSize="30sp" />
-
+    </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/distanceView"
             android:text="KM"
@@ -75,10 +81,10 @@
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
             android:layout_below="@id/btnOff"
             />
+    </TableRow>
+</TableLayout>
 
         <TextView
             android:id="@+id/txtLatLong"
@@ -92,7 +98,6 @@
 
             />
 
-    </RelativeLayout>
 
 
 

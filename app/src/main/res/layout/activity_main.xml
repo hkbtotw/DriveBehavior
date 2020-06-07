@@ -3,11 +3,13 @@
      android:layout_height="match_parent"
      android:layout_width="match_parent"
     android:orientation="vertical">
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/editText"
         android:layout_width="100dp"
@@ -41,7 +43,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         />
-</LinearLayout>
+</TableRow>
+</TableLayout>
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
